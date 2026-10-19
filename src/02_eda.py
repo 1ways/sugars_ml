@@ -107,29 +107,13 @@ plt.tight_layout()
 plt.savefig(f'{output_dir}/03_boxplots_by_class.png', dpi=300, bbox_inches='tight')
 plt.close()
 
-if 'BMICategory' in df.columns:
-    plt.figure(figsize=(9, 5))
-    order = ['Underweight', 'Normal', 'Overweight', 'Obese']
-    existing_order = [cat for cat in order if cat in df['BMICategory'].unique()]
-    sns.countplot(
-        data=df, x='BMICategory', hue='Outcome', 
-        order=existing_order, palette=['#4C72B0', '#DD8452']
-    )
-    plt.title('Diabetes Outcome Across WHO BMI Categories', fontsize=14, fontweight='bold')
-    plt.xlabel('BMI Category (WHO)')
-    plt.ylabel('Number of Patients')
-    plt.legend(title='Outcome', labels=['No Diabetes (0)', 'Diabetes (1)'])
-    plt.tight_layout()
-    plt.savefig(f'{output_dir}/04_bmi_categories_outcome.png', dpi=300)
-    plt.close()
-
 key_vars = ['Glucose', 'BMI', 'Age', 'Insulin', 'Outcome']
 pairplot_fig = sns.pairplot(
-    df[key_vars], hue='Outcome', palette=['#4C72B0', '#DD8452'], 
+    df[key_vars], hue='Outcome', palette=['#4C72B0', '#DD8452'],
     diag_kind='kde', corner=True, plot_kws={'alpha': 0.6}
 )
 pairplot_fig.fig.suptitle('Pairplot of Key Clinical Features', fontsize=16, fontweight='bold', y=1.02)
-pairplot_fig.savefig(f'{output_dir}/05_pairplot_key_features.png', dpi=300, bbox_inches='tight')
+pairplot_fig.savefig(f'{output_dir}/04_pairplot_key_features.png', dpi=300, bbox_inches='tight')
 plt.close()
 
 print("3. Pearson Correlation Matrix")
@@ -147,7 +131,7 @@ sns.heatmap(
 )
 plt.title('Pearson Correlation Heatmap of Medical Features', fontsize=14, fontweight='bold')
 plt.tight_layout()
-plt.savefig(f'{output_dir}/06_correlation_heatmap.png', dpi=300)
+plt.savefig(f'{output_dir}/05_correlation_heatmap.png', dpi=300)
 plt.close()
 
 plt.figure(figsize=(8, 5))
@@ -164,7 +148,7 @@ for i, v in enumerate(outcome_corr.values):
     plt.text(v + 0.01, i, f'{v:.2f}', va='center', fontweight='bold')
 
 plt.tight_layout()
-plt.savefig(f'{output_dir}/07_outcome_correlations_bar.png', dpi=300)
+plt.savefig(f'{output_dir}/06_outcome_correlations_bar.png', dpi=300)
 plt.close()
 
-print(f"All 7 figures saved to '{output_dir}/'")
+print(f"All 6 figures saved to '{output_dir}/'")
